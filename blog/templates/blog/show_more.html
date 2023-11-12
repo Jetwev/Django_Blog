@@ -1,0 +1,17 @@
+<p class="article-content" id="postContent{{ post.id }}">{{ post.content|truncatewords_html:50 }}</p>
+{% if post.content|wordcount > 50 %}
+    <button class="showMore btn btn btn-outline-primary" data-postid="{{ post.id }}">Show more</button>
+    <span class="moreText" id="moreText{{ post.id }}" style="display: none;">{{ post.content|linebreaksbr }}</span>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.showMore').forEach(function(element) {
+                element.addEventListener('click', function() {
+                    var postId = this.getAttribute('data-postid');
+                    document.getElementById('postContent' + postId).style.display = 'none';
+                    document.getElementById('moreText' + postId).style.display = 'inline';
+                    this.style.display = 'none';
+                });
+            });
+        });
+    </script>
+{% endif %}
